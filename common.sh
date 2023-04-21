@@ -4,10 +4,10 @@ rm -f ${log_file}
 status_check()
 {
   if [ $1 -ne 0 ]; then
-    echo "\e[31mFAILURE\e[0m"
+    echo -e "\e[31mFAILURE\e[0m"
     exit 1
   else
-    echo "\e[32mSUCCESS\e[0m"
+    echo -e "\e[32mSUCCESS\e[0m"
   fi
 }
 print_head()
