@@ -1,11 +1,21 @@
-code_dir=$(pwd)
-yum install nginx -y
-systemctl enable nginx
-systemctl start nginx
-rm -rf /usr/share/nginx/html/*
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
-cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
-cp ${code_dir}/configs/frontend.conf /etc/nginx/default.d/roboshop.conf
-systemctl restart nginx
-echo -e "\e[32mLOOKS EVERYTHING WENT FINE\e["
+source common.sh
+print_head "installing nginx"
+yum install nginx -y &>>${log_file}
+status_check $?
+print_head "enabling nginx"
+systemctl enable nginx &>>${log_file}
+status_check $?
+print_head "removing old contents"
+rm -rf /usr/share/nginx/html/* &>>${log_file}
+status_check $?
+print_head "downloading frontend contents"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
+status_check $?
+print_head "extracting into nginx directory"
+cd /usr/share/nginx/html &>>${log_file}
+unzip /tmp/frontend.zip &>>${log_file}
+
+print_head "copying frontend components"
+cp ${code_dir}/configs/frontend.conf /etc/nginx/default.d/roboshop.conf &>>${log_file}
+print_head "restarting nginx"
+systemctl restart nginx &>>${log_file}

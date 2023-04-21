@@ -1,0 +1,5 @@
+source common.sh
+component=cart
+NODEJS
+ROBOSHOP_APP_SETUP
+SYSTEMD_FUNC
