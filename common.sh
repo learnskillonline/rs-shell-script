@@ -29,7 +29,7 @@ NODEJS()
   status_check $?
 
   print_head "copying ${component} service file"
-  cp ${code_dir}/config-files/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+  cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
   status_check $?
 
   print_head "installing node package manager"
@@ -37,6 +37,7 @@ NODEJS()
 }
 SYSTEMD_FUNC()
 {
+  cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service
   systemctl daemon-reload
   systemctl enable ${component}
   systemctl restart ${component}
