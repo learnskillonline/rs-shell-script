@@ -1,6 +1,6 @@
 source common.sh
-mysql_root_pass=$1
-if [ -z "${mysql_root_pass}" ]; then          # -z will check if the variable is empty. if it is empty returns 0 or else returns 1
+mysql_pass=$1
+if [ -z "${mysql_pass}" ]; then          # -z will check if the variable is empty. if it is empty returns 0 or else returns 1
     echo "Enter mysql password"
     exit 1
 fi
