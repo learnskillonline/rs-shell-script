@@ -9,14 +9,13 @@ if [ -z "${SGID}" ]; then
   exit 1
 fi
 
-aws ec2 request-spot-instances \
-  --instance-count=11 \
-  --image-id ${AMI_ID} \
-  --tag-specifications "ResourceType=spot-instance-request,Tags=[Key=Name, Value=${COMPONENT}]" \
-  --instance-type=t3.micro \
-  --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}"\
-  --security-group-ids="${SGID}"
-
 for component in frontend mongodb catalogue cart mysql user payment shipping dispatch redis rabbitmq; do
   COMPONENT="${component}"
+  aws ec2 request-spot-instances \
+    --instance-count=11 \
+    --image-id ${AMI_ID} \
+    --tag-specifications "ResourceType=spot-instance-request,Tags=[Key=Name, Value=${COMPONENT}]" \
+    --instance-type=t3.micro \
+    --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}"\
+    --security-group-ids="${SGID}"
 done
