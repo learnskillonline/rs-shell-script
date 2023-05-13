@@ -13,7 +13,7 @@ for component in frontend mongodb catalogue cart mysql user payment shipping dis
   COMPONENT="${component}"
   aws ec2 run-instances \
     --image-id ${AMI_ID} \
-    --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}", "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" \
     --instance-type t3.micro \
     --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}" \
     --security-group-ids "${SGID}"
