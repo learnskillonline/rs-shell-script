@@ -14,9 +14,9 @@ for component in frontend mongodb catalogue cart mysql user payment shipping dis
   COMPONENT="${component}"
   aws ec2 request-spot-instances \
     --instance-count 1 \
-    --image-id "${AMI_ID}" \
+    --image-id ${AMI_ID} \
     --instance-type t3.micro \
-    --instance-market-option "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" \
+    --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" \
     --security-group-ids "${SGID}" \
     --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]"
 done
