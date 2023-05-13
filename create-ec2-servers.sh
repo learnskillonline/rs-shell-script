@@ -11,7 +11,7 @@ fi
 
 for component in frontend mongodb catalogue cart mysql user payment shipping dispatch redis rabbitmq; do
   COMPONENT="${component}"
-  aws ec2 request-spot-instances \
+  aws ec2 run-spot-instances \
     --image-id ${AMI_ID} \
     --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" \
     --instance-type t3.micro \
